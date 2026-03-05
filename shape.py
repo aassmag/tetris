@@ -1,6 +1,6 @@
 import copy
 from config import *
-
+#
 
 class Shape:
     def __init__(self, x, y, shape_name):

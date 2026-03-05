@@ -1,5 +1,6 @@
 import arcade
 import random
+
 from config import *
 from shape import Shape
 
@@ -24,6 +25,8 @@ class Tetris(arcade.Window):
         self.paused = False
 
         self.spawn_new_piece()
+        self.sound = arcade.load_sound(":resources:sounds/explosion2.wav")
+
         print("Game initialized!")
 
     def spawn_new_piece(self):
@@ -31,6 +34,7 @@ class Tetris(arcade.Window):
             self.current_piece = self.next_piece
             self.current_piece.x = BOARD_WIDTH // 2 - 1
             self.current_piece.y = 0
+            self.sound.play()
         else:
             shape_name = random.choice(list(SHAPES.keys()))
             self.current_piece = Shape(BOARD_WIDTH // 2 - 1, 0, shape_name)
@@ -241,7 +245,10 @@ class Tetris(arcade.Window):
 
 def main():
     print("Starting Tetris...")
-    window = Tetris()
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Тетрис")
+    from screens import StartView
+    start_view = StartView()
+    window.show_view(start_view)
     arcade.run()
 
 
